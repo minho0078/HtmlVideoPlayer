@@ -22,8 +22,6 @@ var vs_video = function(){
                   }
                }
 
-
-
 // 자막 DIV 위치 세팅~
 var oSelf = $('.sub');
 var oSelfArray = oSelf.attr('id').split("_");
@@ -60,3 +58,28 @@ function getAbsolutePos(obj) {
 	}
 	return position;
 }
+
+
+/* 자막 기능 */
+var subClearTime = 0;
+var ov = document.getElementById(oSelfArray[0]);
+
+ov.onplay = function() {
+   setInterval(function(){
+
+         var sTime = (ov.currentTime).toFixed(1);
+
+         if(subClearTime == sTime){
+            subDiv.html("");
+         }
+         //console.log(sub[sTime]);
+
+         if(sub[sTime] != undefined){
+
+            subClearTime = (sub[sTime])[0];
+
+            subDiv.html(sub[sTime][1]);
+         }
+
+   },100);
+};
