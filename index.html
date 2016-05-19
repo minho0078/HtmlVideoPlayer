@@ -3,8 +3,55 @@
    <head>
       <meta charset="utf-8">
       <title>videoPlayer test</title>
+      <script src="./js/jquery-1.12.3.min.js"></script>
+      <script src="./js/sub.json"></script>
+      <link href="./css/sub.css" rel="stylesheet"/>
    </head>
    <body>
-      
+      <div>
+      <video id="ovp" width="500" controls constroller>
+         <source src="./file/test.mp4" type="video/mp4"/>
+      </video>
+      <div>
+         <button onclick="player.speedDown('ovp');">배속▼</button>
+         <button onclick="player.speedUp('ovp');">배속▲</button>
+         <button onclick="player.volumeDown('ovp');">볼륨▼</button>
+         <button onclick="player.volumeUp('ovp');">볼륨▲</button>
+      </div>
+
+      <div class="sub" id="ovp_sub">
+         sub~
+      </div>
+
+
+</div>
    </body>
+   <script src="./js/vp.js"></script>
+   <script>
+      var player = new vs_video();
+      
+      var subClearTime = 0;
+      var ov = document.getElementById("ovp");
+
+      ov.onplay = function() {
+         setInterval(function(){
+
+               var sTime = (ov.currentTime).toFixed(1);
+
+               if(subClearTime == sTime){
+                  $('#ovp_sub').html("");
+               }
+               //console.log(sub[sTime]);
+
+               if(sub[sTime] != undefined){
+
+                  subClearTime = (sub[sTime])[0];
+
+                  $('#ovp_sub').html(sub[sTime][1]);
+               }
+
+         },100);
+      };
+
+   </script>
 </html>
